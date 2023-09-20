@@ -1,0 +1,54 @@
+<section>
+  <img class="banner" src="../../../assets/Img/banner.png" alt="banner agrocoordenadas">
+
+  <div class="pdfLoading">
+    <div class="loading">
+      <div class="margginDiv">
+        <div class="loadingText">
+          <span class="file-name">
+            {{ selectedPdfFile ? selectedPdfFile.name : 'Carregue o arquivo' }}
+          </span>
+        </div>
+
+        <div class="loadingImg">
+          <label for="fileInput" class="custom-file-upload">
+            <img class="imgInput" src="../../../assets/Img/envio.png" alt="Selecionar arquivo">
+          </label>
+          <input type="file" (change)="onFileSelected($event)" accept=".pdf" name="PdfFile" id="fileInput"
+            style="display: none">
+        </div>
+      </div>
+    </div>
+
+    <div class="loadingButton">
+      <button class="buttonProcess" (click)="upload()">Filtrar</button>
+    </div>
+    <div class="snniperDiv" *ngIf="isUploading">
+      <img class="snniper" src="../../../assets/Img/carregando.png" alt="carregando">
+    </div>
+  </div>
+  <div class="imgCopyDiv">
+    <img (click)="clearResult()" class="imgCopy" src="../../../assets/Img/lixeira.png" alt="botão de limpar">
+    <img (click)="copyToClipboard()" class="imgCopy" src="../../../assets/Img/copy.png" alt="botão de copiar">
+    <img (click)="saveToExcel()" class="imgCopy" src="../../../assets/Img/xls.png" alt="botão de salvar">
+  </div>
+
+  <div class="conteinerTextsFilters">
+
+    <div class="containerResult" [innerHTML]="responseTexts"></div>
+
+
+    <div class="containerFilter">
+
+      <textarea class="itemFilter NResultStringClass" [(ngModel)]="NResultString"
+        *ngIf="results.N.length > 0"></textarea>
+      <textarea class="itemFilter EResultStringClass" [(ngModel)]="EResultString"
+        *ngIf="results.E.length > 0"></textarea>
+      <textarea class="itemFilter LatResultStringClass" [(ngModel)]="LatResultString"
+        *ngIf="results.Latitude.length > 0"></textarea>
+      <textarea class="itemFilter LongResultStringClass" [(ngModel)]="LongResultString"
+        *ngIf="results.Longitude.length > 0"></textarea>
+    </div>
+  </div>
+
+</section>
