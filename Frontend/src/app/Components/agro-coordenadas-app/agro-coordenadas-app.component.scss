@@ -182,10 +182,18 @@ textarea:focus {
   height: 30px;
 }
 
-.imgCopy:hover {
+.imgCopyMark {
+  width: 32px;
+  height: 32px;
+}
+
+
+.imgCopy:hover,
+.imgCopyMark:hover {
   transform: scale(1.15);
   transition: 0.2s;
 }
+
 .erro {
   width: 100%;
 }
@@ -203,12 +211,11 @@ textarea:focus {
   width: 20px;
 }
 
-// #pesquisa {
-//   display: none;
-// }
-
-mark {
-  background: #202956 !important;
-  background-color: #202956 !important;
-  color: #202956 !important;
+//#pesquisa {
+//  display: none;
+//}
+#pesquisa {
+  width: 800px;
+  height: 400px;
+  box-sizing: border-box;
 }

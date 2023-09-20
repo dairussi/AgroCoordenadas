@@ -39,7 +39,7 @@ export class AgroCoordenadasAppComponent {
   constructor(
     private http: HttpClient,
     private clipboardService: ClipboardService
-  ) {}
+  ) { }
   @ViewChild('pesquisa') pesquisa!: ElementRef;
   @ViewChild('paragrafo') paragrafo!: ElementRef;
 
@@ -110,7 +110,7 @@ export class AgroCoordenadasAppComponent {
       resultString = 'N;\n';
       for (let i = 0; i < maxItems; i++) {
         const n = nArray[i] || '';
-        const formattedN = this.FormatValueLatLong(n);
+        const formattedN = this.FormatValueUtm(n);
         resultString += `${formattedN};\n`;
       }
     }
@@ -125,7 +125,7 @@ export class AgroCoordenadasAppComponent {
       resultString = 'E\n';
       for (let i = 0; i < maxItems; i++) {
         const e = eArray[i] || '';
-        const formattedE = this.FormatValueLatLong(e);
+        const formattedE = this.FormatValueUtm(e);
         resultString += `${formattedE}\n`;
       }
     }
