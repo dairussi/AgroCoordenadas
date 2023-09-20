@@ -32,7 +32,7 @@ namespace Backend.Services
 
             foreach (Match match in matches1)
             {
-                string formattedValue = FormatValueUtm(match.Value);
+                string formattedValue = FormatValue(match.Value);
                 if (seenValues1.Add(formattedValue))
                 {
                     filteredNumbers1.Add(formattedValue);
@@ -44,7 +44,7 @@ namespace Backend.Services
 
             foreach (Match match in matches2)
             {
-                string formattedValue = FormatValueUtm(match.Value);
+                string formattedValue = FormatValue(match.Value);
                 if (seenValues2.Add(formattedValue))
                 {
                     filteredNumbers2.Add(formattedValue);
@@ -55,7 +55,7 @@ namespace Backend.Services
 
             foreach (Match match in matches3)
             {
-                string formattedValue = FormatValueLatLong(match.Value);
+                string formattedValue = FormatValue(match.Value);
                 if (seenValues3.Add(formattedValue))
                 {
                     filteredNumbers3.Add(formattedValue);
@@ -66,7 +66,7 @@ namespace Backend.Services
 
             foreach (Match match in matches4)
             {
-                string formattedValue = FormatValueLatLong(match.Value);
+                string formattedValue = FormatValue(match.Value);
                 if (seenValues4.Add(formattedValue))
                 {
                     filteredNumbers4.Add(formattedValue);
@@ -84,31 +84,15 @@ namespace Backend.Services
             return results;
         }
 
-        private string FormatValueUtm(string value)
+        private string FormatValue(string value)
         {
             string formattedValue = value.Replace(" ", "");
-            if (formattedValue.Length > 4)
-            {
-                string lastFour = formattedValue.Substring(formattedValue.Length - 4);
-                string everythingElse = formattedValue.Substring(0, formattedValue.Length - 4);
-                lastFour = Regex.Replace(lastFour, @"[.,]", ",");
-                everythingElse = Regex.Replace(everythingElse, @"[^\d]", "");
-                formattedValue = everythingElse + lastFour;
-            }
-            else
-            {
-                formattedValue = formattedValue.TrimEnd('.', ',');
-            }
-            return formattedValue;
-        }
-
-        private string FormatValueLatLong(string value)
-        {
-
-            string formattedValue = value.Replace(" ", "");
-            formattedValue = formattedValue.Replace(".", ",");
             return formattedValue;
         }
 
     }
 }
+    
+
+
+

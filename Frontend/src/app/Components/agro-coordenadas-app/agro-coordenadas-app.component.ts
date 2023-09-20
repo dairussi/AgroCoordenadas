@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
 import { List } from 'immutable';
 import { ClipboardService } from 'ngx-clipboard';
 import * as XLSX from 'xlsx';
+import * as Mark from 'mark.js';
 
 @Component({
   selector: 'app-agro-coordenadas-app',
@@ -20,9 +21,13 @@ export class AgroCoordenadasAppComponent {
     Longitude: [],
   };
   LatResultString: string = '';
+  LatResultStringRaw: string = '';
   LongResultString: string = '';
+  LongResultStringRaw: string = '';
   NResultString: string = '';
+  NResultStringRaw: string = '';
   EResultString: string = '';
+  EResultStringRaw: string = '';
   isUploading: boolean = false;
   errorMessage: string | null = null;
   noFileSelectedWarning = false;
@@ -35,6 +40,19 @@ export class AgroCoordenadasAppComponent {
     private http: HttpClient,
     private clipboardService: ClipboardService
   ) {}
+  @ViewChild('pesquisa') pesquisa!: ElementRef;
+  @ViewChild('paragrafo') paragrafo!: ElementRef;
+
+  marcar() {
+    const keyword = this.pesquisa.nativeElement.value;
+    const context = this.paragrafo.nativeElement;
+
+    if (context) {
+      const instance = new Mark(context);
+      instance.unmark();
+      instance.mark(keyword);
+    }
+  }
 
   private combineContent(): string {
     const nLines = this.NResultString.split('\n');
@@ -92,7 +110,8 @@ export class AgroCoordenadasAppComponent {
       resultString = 'N;\n';
       for (let i = 0; i < maxItems; i++) {
         const n = nArray[i] || '';
-        resultString += `${n};\n`;
+        const formattedN = this.FormatValueLatLong(n);
+        resultString += `${formattedN};\n`;
       }
     }
     return resultString;
@@ -106,7 +125,8 @@ export class AgroCoordenadasAppComponent {
       resultString = 'E\n';
       for (let i = 0; i < maxItems; i++) {
         const e = eArray[i] || '';
-        resultString += `${e}\n`;
+        const formattedE = this.FormatValueLatLong(e);
+        resultString += `${formattedE}\n`;
       }
     }
     return resultString;
@@ -120,7 +140,8 @@ export class AgroCoordenadasAppComponent {
       resultString = 'Latitude;\n';
       for (let i = 0; i < maxItems; i++) {
         const latitude = latitudeArray[i] || '';
-        resultString += `${latitude};\n`;
+        const formattedLatitude = this.FormatValueLatLong(latitude);
+        resultString += `${formattedLatitude};\n`;
       }
     }
     return resultString;
@@ -134,7 +155,8 @@ export class AgroCoordenadasAppComponent {
       resultString = 'Longitude\n';
       for (let i = 0; i < maxItems; i++) {
         const longitude = longitudeArray[i] || '';
-        resultString += `${longitude}\n`;
+        const formattedLongitude = this.FormatValueLatLong(longitude);
+        resultString += `${formattedLongitude}\n`;
       }
     }
     return resultString;
@@ -145,6 +167,27 @@ export class AgroCoordenadasAppComponent {
     if (fileInput.files && fileInput.files.length > 0) {
       this.selectedPdfFile = fileInput.files[0];
     }
+  }
+  public FormatValueUtm(value: string): string {
+    let formattedValue = value;
+    if (formattedValue.length > 4) {
+      const lastFour = formattedValue.substring(formattedValue.length - 4);
+      const everythingElse = formattedValue.substring(
+        0,
+        formattedValue.length - 4
+      );
+      const lastFourFormatted = lastFour.replace(/[.,]/g, ',');
+      const everythingElseFormatted = everythingElse.replace(/[^\d]/g, '');
+      formattedValue = everythingElseFormatted + lastFourFormatted;
+    } else {
+      formattedValue = formattedValue.replace(/[.,]/g, '').trimEnd();
+    }
+    return formattedValue;
+  }
+
+  public FormatValueLatLong(value: string): string {
+    const formattedValue = value.replace(/\./g, ',');
+    return formattedValue;
   }
 
   public upload(): void {
@@ -178,9 +221,13 @@ export class AgroCoordenadasAppComponent {
           next: (data: FilterResult) => {
             console.log('Filter applied successfully');
             this.results = data;
+            this.LatResultStringRaw = data.Latitude.join(' ');
             this.LatResultString = this.LatFilterResult(data);
+            this.LongResultStringRaw = data.Longitude.join(' ');
             this.LongResultString = this.LongFilterResult(data);
+            this.NResultStringRaw = data.N.join(' ');
             this.NResultString = this.NFilterResult(data);
+            this.EResultStringRaw = data.E.join(' ');
             this.EResultString = this.EFilterResult(data);
             this.isUploading = false;
           },

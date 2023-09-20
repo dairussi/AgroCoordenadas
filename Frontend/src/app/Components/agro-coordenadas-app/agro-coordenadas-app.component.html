@@ -41,13 +41,19 @@
 
   <div class="imgCopyDiv">
     <img (click)="clearResult()" class="imgCopy" src="../../../assets/Img/lixeira.png" alt="botão de limpar">
+    <img (click)="marcar()" class="imgCopy" src="../../../assets/Img/destaque.png" alt="botão de marcar">
     <img (click)="copyToClipboard()" class="imgCopy" src="../../../assets/Img/copy.png" alt="botão de copiar">
     <img (click)="saveToExcel()" class="imgCopy" src="../../../assets/Img/xls.png" alt="botão de salvar">
+
+    <input type="text" id="pesquisa" #pesquisa
+      [value]="NResultStringRaw + ' ' + EResultStringRaw + ' ' + LatResultStringRaw + ' ' + LongResultStringRaw">
+
+
   </div>
 
   <div class="conteinerTextsFilters">
 
-    <div class="containerResult" [innerHTML]="responseTexts"></div>
+    <div id="paragrafo" #paragrafo class="containerResult" [innerHTML]="responseTexts"></div>
 
 
     <div class="containerFilter">
