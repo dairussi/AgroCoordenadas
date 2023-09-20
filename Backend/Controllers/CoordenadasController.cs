@@ -65,6 +65,7 @@ namespace Backend.Controllers
 
             //converte pdf para imagens salva na pasta criada logo acima
 
+
             using (PdfiumViewer.PdfDocument pdfDocument = PdfiumViewer.PdfDocument.Load(tempFilePath))
             {
                 for (int pageNumber = 0; pageNumber < pdfDocument.PageCount; pageNumber++)
@@ -195,7 +196,7 @@ namespace Backend.Controllers
 
             catch (Exception ex)
             {
-                return BadRequest($"Error converting PDF to images: {ex.Message}");
+                return BadRequest($"Error ao converter o PDF: {ex.Message}");
 
             }
         }

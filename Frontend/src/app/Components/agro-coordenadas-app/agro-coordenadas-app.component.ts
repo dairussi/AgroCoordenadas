@@ -24,6 +24,8 @@ export class AgroCoordenadasAppComponent {
   NResultString: string = '';
   EResultString: string = '';
   isUploading: boolean = false;
+  errorMessage: string | null = null;
+  noFileSelectedWarning = false;
 
   getObjectKeys(obj: any): string[] {
     return Object.keys(obj).filter((key) => obj[key] !== undefined);
@@ -32,7 +34,7 @@ export class AgroCoordenadasAppComponent {
   constructor(
     private http: HttpClient,
     private clipboardService: ClipboardService
-  ) { }
+  ) {}
 
   private combineContent(): string {
     const nLines = this.NResultString.split('\n');
@@ -80,7 +82,6 @@ export class AgroCoordenadasAppComponent {
     this.LongResultString = '';
     this.responseTexts = [];
   }
-
 
   private NFilterResult(data: FilterResult): string {
     const nArray = data.N || [];
@@ -148,6 +149,8 @@ export class AgroCoordenadasAppComponent {
   public upload(): void {
     if (this.selectedPdfFile) {
       this.isUploading = true;
+      this.errorMessage = null;
+      this.noFileSelectedWarning = false;
       const formData: FormData = new FormData();
       formData.append(
         'PdfFile',
@@ -183,10 +186,11 @@ export class AgroCoordenadasAppComponent {
           error: (error: HttpErrorResponse) => {
             console.error('Error:', error);
             this.isUploading = false;
+            this.errorMessage = 'erro back';
           },
         });
     } else {
-      console.warn('No file selected');
+      this.noFileSelectedWarning = true;
     }
   }
 }

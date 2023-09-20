@@ -186,3 +186,19 @@ textarea:focus {
   transform: scale(1.15);
   transition: 0.2s;
 }
+.erro {
+  width: 100%;
+}
+
+.erroPdf,
+.erroBack {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1%;
+}
+
+.alert {
+  width: 20px;
+}

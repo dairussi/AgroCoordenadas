@@ -27,6 +27,18 @@
       <img class="snniper" src="../../../assets/Img/carregando.png" alt="carregando">
     </div>
   </div>
+
+  <div class="erro">
+    <div class="erroPdf" *ngIf="noFileSelectedWarning">
+      <img class="alert" src="../../../assets/Img/aviso.png" alt="alerta">
+      <p>Selecione um PDF</p>
+    </div>
+    <div class="erroBack" *ngIf="errorMessage">
+      <img class="alert" src="../../../assets/Img/aviso.png" alt="alerta">
+      <p>Ocorreu um erro ao processar o PDF</p>
+    </div>
+  </div>
+
   <div class="imgCopyDiv">
     <img (click)="clearResult()" class="imgCopy" src="../../../assets/Img/lixeira.png" alt="botão de limpar">
     <img (click)="copyToClipboard()" class="imgCopy" src="../../../assets/Img/copy.png" alt="botão de copiar">
