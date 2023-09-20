@@ -81,6 +81,7 @@ export class AgroCoordenadasAppComponent {
     this.LatResultString = '';
     this.LongResultString = '';
     this.responseTexts = [];
+    this.isUploading = false;
   }
 
   private NFilterResult(data: FilterResult): string {
