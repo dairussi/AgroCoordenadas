@@ -104,6 +104,7 @@ namespace Backend.Controllers
                             text = text.Replace("\n", " ");
                             text = text.Replace("\r", " ");
                             text = text.Replace("\t", " ");
+                            text = text.Replace("º", "°");
                             texts.Add(text);
                         }
                     }
