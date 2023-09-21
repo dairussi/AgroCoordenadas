@@ -59,14 +59,15 @@
 
     <div class="containerFilter">
 
-      <textarea class="itemFilter NResultStringClass" [(ngModel)]="NResultString"
-        *ngIf="results.N.length > 0"></textarea>
+
       <textarea class="itemFilter EResultStringClass" [(ngModel)]="EResultString"
         *ngIf="results.E.length > 0"></textarea>
-      <textarea class="itemFilter LatResultStringClass" [(ngModel)]="LatResultString"
-        *ngIf="results.Latitude.length > 0"></textarea>
+      <textarea class="itemFilter NResultStringClass" [(ngModel)]="NResultString"
+        *ngIf="results.N.length > 0"></textarea>
       <textarea class="itemFilter LongResultStringClass" [(ngModel)]="LongResultString"
         *ngIf="results.Longitude.length > 0"></textarea>
+      <textarea class="itemFilter LatResultStringClass" [(ngModel)]="LatResultString"
+        *ngIf="results.Latitude.length > 0"></textarea>
     </div>
   </div>
 

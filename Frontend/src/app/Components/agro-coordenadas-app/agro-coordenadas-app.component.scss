@@ -136,6 +136,7 @@ textarea:focus {
   justify-content: center;
   overflow-x: auto;
   overflow-y: auto;
+  gap: 1%;
 }
 
 .itemFilter {
@@ -164,8 +165,8 @@ textarea:focus {
   background-color: transparent;
 }
 
-.NResultStringClass,
-.LatResultStringClass {
+.EResultStringClass,
+.LongResultStringClass {
   text-align: end;
 }
 

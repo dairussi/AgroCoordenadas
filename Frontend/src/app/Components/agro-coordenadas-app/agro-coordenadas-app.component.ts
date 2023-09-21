@@ -107,11 +107,11 @@ export class AgroCoordenadasAppComponent {
     const maxItems = Math.max(nArray.length);
     let resultString = '';
     if (nArray.length > 0) {
-      resultString = 'N;\n';
+      resultString = 'N\n';
       for (let i = 0; i < maxItems; i++) {
         const n = nArray[i] || '';
         const formattedN = this.FormatValueUtm(n);
-        resultString += `${formattedN};\n`;
+        resultString += `${formattedN}\n`;
       }
     }
     return resultString;
@@ -122,11 +122,11 @@ export class AgroCoordenadasAppComponent {
     const maxItems = Math.max(eArray.length);
     let resultString = '';
     if (eArray.length > 0) {
-      resultString = 'E\n';
+      resultString = 'E;\n';
       for (let i = 0; i < maxItems; i++) {
         const e = eArray[i] || '';
         const formattedE = this.FormatValueUtm(e);
-        resultString += `${formattedE}\n`;
+        resultString += `${formattedE};\n`;
       }
     }
     return resultString;
@@ -137,11 +137,11 @@ export class AgroCoordenadasAppComponent {
     const maxItems = Math.max(latitudeArray.length);
     let resultString = '';
     if (latitudeArray.length > 0) {
-      resultString = 'Latitude;\n';
+      resultString = 'Latitude\n';
       for (let i = 0; i < maxItems; i++) {
         const latitude = latitudeArray[i] || '';
         const formattedLatitude = this.FormatValueLatLong(latitude);
-        resultString += `${formattedLatitude};\n`;
+        resultString += `${formattedLatitude}\n`;
       }
     }
     return resultString;
@@ -152,11 +152,11 @@ export class AgroCoordenadasAppComponent {
     const maxItems = Math.max(longitudeArray.length);
     let resultString = '';
     if (longitudeArray.length > 0) {
-      resultString = 'Longitude\n';
+      resultString = 'Longitude;\n';
       for (let i = 0; i < maxItems; i++) {
         const longitude = longitudeArray[i] || '';
         const formattedLongitude = this.FormatValueLatLong(longitude);
-        resultString += `${formattedLongitude}\n`;
+        resultString += `${formattedLongitude};\n`;
       }
     }
     return resultString;
@@ -187,7 +187,8 @@ export class AgroCoordenadasAppComponent {
 
   public FormatValueLatLong(value: string): string {
     const formattedValue = value.replace(/\./g, ',');
-    return formattedValue;
+    const finalFormattedValue = formattedValue.replace(/º/g, '°');
+    return finalFormattedValue;
   }
 
   public upload(): void {
