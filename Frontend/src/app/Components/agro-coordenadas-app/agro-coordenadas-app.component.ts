@@ -39,7 +39,7 @@ export class AgroCoordenadasAppComponent {
   constructor(
     private http: HttpClient,
     private clipboardService: ClipboardService
-  ) { }
+  ) {}
   @ViewChild('pesquisa') pesquisa!: ElementRef;
   @ViewChild('paragrafo') paragrafo!: ElementRef;
 
@@ -55,24 +55,24 @@ export class AgroCoordenadasAppComponent {
   }
 
   private combineContent(): string {
-    const nLines = this.NResultString.split('\n');
     const eLines = this.EResultString.split('\n');
-    const latLines = this.LatResultString.split('\n');
+    const nLines = this.NResultString.split('\n');
     const longLines = this.LongResultString.split('\n');
+    const latLines = this.LatResultString.split('\n');
     const combinedLines = [];
     const maxLines = Math.max(
-      nLines.length,
       eLines.length,
-      latLines.length,
-      longLines.length
+      nLines.length,
+      longLines.length,
+      latLines.length
     );
     for (let i = 0; i < maxLines; i++) {
-      const nLine = i < nLines.length ? nLines[i] : '';
       const eLine = i < eLines.length ? eLines[i] : '';
-      const latLine = i < latLines.length ? latLines[i] : '';
+      const nLine = i < nLines.length ? nLines[i] : '';
       const longLine = i < longLines.length ? longLines[i] : '';
+      const latLine = i < latLines.length ? latLines[i] : '';
       if (nLine || eLine || latLine || longLine) {
-        combinedLines.push(`${nLine}${eLine}${latLine}${longLine}`);
+        combinedLines.push(`${eLine}${nLine}${longLine}${latLine}`);
       }
     }
     return combinedLines.join('\n');
